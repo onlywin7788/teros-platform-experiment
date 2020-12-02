@@ -1,0 +1,9 @@
+2020:11:23 10:11:51.762 INFO  --- [main] com.example.demo.DemoApplication : Example log from DemoApplication 
+2020:11:23 10:11:51.776 ERROR --- [main] com.example.demo.DemoApplication : error 
+2020:11:23 10:11:51.776 WARN  --- [main] com.example.demo.DemoApplication : warn 
+2020:11:23 10:11:51.776 INFO  --- [main] com.example.demo.DemoApplication : info 
+2020:11:23 10:11:51.776 DEBUG --- [main] com.example.demo.DemoApplication : debug 
+2020:11:23 10:11:51.785 INFO  --- [main] com.example.demo.DemoApplication : Starting DemoApplication using Java 12.0.2 on DESKTOP-MAEU7DJ with PID 5732 (C:\pjt\spring-pjt-all\custom-logger-test\build\classes\java\main started by jiyoung in C:\pjt\spring-pjt-all\custom-logger-test) 
+2020:11:23 10:11:51.786 DEBUG --- [main] com.example.demo.DemoApplication : Running with Spring Boot v2.4.0, Spring v5.3.1 
+2020:11:23 10:11:51.786 INFO  --- [main] com.example.demo.DemoApplication : The following profiles are active: local,core 
+2020:11:23 10:11:54.668 INFO  --- [main] com.example.demo.DemoApplication : Started DemoApplication in 3.959 seconds (JVM running for 4.577) 

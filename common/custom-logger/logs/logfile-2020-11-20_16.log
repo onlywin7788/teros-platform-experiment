@@ -1,0 +1,49 @@
+2020:11:20 16:39:22.961 INFO  --- [main] com.example.demo.DemoApplication : Example log from DemoApplication 
+2020:11:20 16:39:22.966 ERROR --- [main] com.example.demo.DemoApplication : error 
+2020:11:20 16:39:22.966 WARN  --- [main] com.example.demo.DemoApplication : warn 
+2020:11:20 16:39:22.966 INFO  --- [main] com.example.demo.DemoApplication : info 
+2020:11:20 16:39:22.967 DEBUG --- [main] com.example.demo.DemoApplication : debug 
+2020:11:20 16:39:22.973 INFO  --- [main] com.example.demo.DemoApplication : Starting DemoApplication using Java 12.0.2 on DESKTOP-MAEU7DJ with PID 21376 (C:\pjt\spring-pjt-all\custom-logger-test\build\classes\java\main started by jiyoung in C:\pjt\spring-pjt-all\custom-logger-test) 
+2020:11:20 16:39:22.974 DEBUG --- [main] com.example.demo.DemoApplication : Running with Spring Boot v2.4.0, Spring v5.3.1 
+2020:11:20 16:39:22.975 INFO  --- [main] com.example.demo.DemoApplication : The following profiles are active: local,core 
+2020:11:20 16:39:26.292 INFO  --- [main] com.example.demo.DemoApplication : Started DemoApplication in 4.078 seconds (JVM running for 4.954) 
+2020:11:20 16:39:32.767 INFO  --- [main] com.example.demo.DemoApplication : Example log from DemoApplication 
+2020:11:20 16:39:32.773 ERROR --- [main] com.example.demo.DemoApplication : error 
+2020:11:20 16:39:32.773 WARN  --- [main] com.example.demo.DemoApplication : warn 
+2020:11:20 16:39:32.774 INFO  --- [main] com.example.demo.DemoApplication : info 
+2020:11:20 16:39:32.774 DEBUG --- [main] com.example.demo.DemoApplication : debug 
+2020:11:20 16:39:32.780 INFO  --- [main] com.example.demo.DemoApplication : Starting DemoApplication using Java 12.0.2 on DESKTOP-MAEU7DJ with PID 3208 (C:\pjt\spring-pjt-all\custom-logger-test\build\classes\java\main started by jiyoung in C:\pjt\spring-pjt-all\custom-logger-test) 
+2020:11:20 16:39:32.781 DEBUG --- [main] com.example.demo.DemoApplication : Running with Spring Boot v2.4.0, Spring v5.3.1 
+2020:11:20 16:39:32.781 INFO  --- [main] com.example.demo.DemoApplication : The following profiles are active: local,core 
+2020:11:20 16:39:35.795 INFO  --- [main] com.example.demo.DemoApplication : Started DemoApplication in 3.87 seconds (JVM running for 4.468) 
+2020:11:20 16:39:52.080 INFO  --- [main] com.example.demo.DemoApplication : Example log from DemoApplication 
+2020:11:20 16:39:52.085 ERROR --- [main] com.example.demo.DemoApplication : error 
+2020:11:20 16:39:52.085 WARN  --- [main] com.example.demo.DemoApplication : warn 
+2020:11:20 16:39:52.085 INFO  --- [main] com.example.demo.DemoApplication : info 
+2020:11:20 16:39:52.086 DEBUG --- [main] com.example.demo.DemoApplication : debug 
+2020:11:20 16:39:52.092 INFO  --- [main] com.example.demo.DemoApplication : Starting DemoApplication using Java 12.0.2 on DESKTOP-MAEU7DJ with PID 2176 (C:\pjt\spring-pjt-all\custom-logger-test\build\classes\java\main started by jiyoung in C:\pjt\spring-pjt-all\custom-logger-test) 
+2020:11:20 16:39:52.093 DEBUG --- [main] com.example.demo.DemoApplication : Running with Spring Boot v2.4.0, Spring v5.3.1 
+2020:11:20 16:39:52.093 INFO  --- [main] com.example.demo.DemoApplication : The following profiles are active: local,core 
+2020:11:20 16:39:55.105 INFO  --- [main] com.example.demo.DemoApplication : Started DemoApplication in 3.776 seconds (JVM running for 4.297) 
+2020:11:20 16:40:09.557 INFO  --- [main] com.example.demo.DemoApplication : Example log from DemoApplication 
+2020:11:20 16:40:09.561 ERROR --- [main] com.example.demo.DemoApplication : error 
+2020:11:20 16:40:09.561 WARN  --- [main] com.example.demo.DemoApplication : warn 
+2020:11:20 16:40:09.561 INFO  --- [main] com.example.demo.DemoApplication : info 
+2020:11:20 16:40:09.561 DEBUG --- [main] com.example.demo.DemoApplication : debug 
+2020:11:20 16:40:09.567 INFO  --- [main] com.example.demo.DemoApplication : Starting DemoApplication using Java 12.0.2 on DESKTOP-MAEU7DJ with PID 16296 (C:\pjt\spring-pjt-all\custom-logger-test\build\classes\java\main started by jiyoung in C:\pjt\spring-pjt-all\custom-logger-test) 
+2020:11:20 16:40:09.568 DEBUG --- [main] com.example.demo.DemoApplication : Running with Spring Boot v2.4.0, Spring v5.3.1 
+2020:11:20 16:40:09.569 INFO  --- [main] com.example.demo.DemoApplication : The following profiles are active: local,core 
+2020:11:20 16:40:12.431 INFO  --- [main] com.example.demo.DemoApplication : Started DemoApplication in 3.47 seconds (JVM running for 3.853) 
+2020:11:20 16:42:25.744 INFO  --- [main] com.example.demo.DemoApplication : Example log from DemoApplication 
+2020:11:20 16:42:25.749 ERROR --- [main] com.example.demo.DemoApplication : error 
+2020:11:20 16:42:25.749 WARN  --- [main] com.example.demo.DemoApplication : warn 
+2020:11:20 16:42:25.749 INFO  --- [main] com.example.demo.DemoApplication : info 
+2020:11:20 16:42:25.749 DEBUG --- [main] com.example.demo.DemoApplication : debug 
+2020:11:20 16:42:25.754 INFO  --- [main] com.example.demo.DemoApplication : Starting DemoApplication using Java 12.0.2 on DESKTOP-MAEU7DJ with PID 13284 (C:\pjt\spring-pjt-all\custom-logger-test\build\classes\java\main started by jiyoung in C:\pjt\spring-pjt-all\custom-logger-test) 
+2020:11:20 16:42:25.755 DEBUG --- [main] com.example.demo.DemoApplication : Running with Spring Boot v2.4.0, Spring v5.3.1 
+2020:11:20 16:42:25.755 INFO  --- [main] com.example.demo.DemoApplication : The following profiles are active: local,core 
+2020:11:20 16:42:28.709 INFO  --- [main] com.example.demo.DemoApplication : Started DemoApplication in 3.562 seconds (JVM running for 3.968) 
+2020:11:20 16:46:30.423 ERROR --- [http-nio-8080-exec-1] Main : controller error  
+2020:11:20 16:46:30.424 WARN  --- [http-nio-8080-exec-1] Main : controller warn 
+2020:11:20 16:46:30.424 INFO  --- [http-nio-8080-exec-1] Main : controller info 
+2020:11:20 16:46:30.424 DEBUG --- [http-nio-8080-exec-1] Main : controller debug 
