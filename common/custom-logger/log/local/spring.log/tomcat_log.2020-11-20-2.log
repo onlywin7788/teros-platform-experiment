@@ -1,0 +1,40 @@
+2020:11:20 16:08:42.256 INFO  --- [main] o.s.b.w.e.tomcat.TomcatWebServer : Tomcat started on port(s): 8080 (http) with context path '' 
+2020:11:20 16:08:42.279 INFO  --- [main] com.example.demo.DemoApplication : Started DemoApplication in 3.406 seconds (JVM running for 3.991) 
+2020:11:20 16:12:14.221 INFO  --- [main] o.s.b.w.e.tomcat.TomcatWebServer : Tomcat initialized with port(s): 8080 (http) 
+2020:11:20 16:12:14.234 INFO  --- [main] o.a.coyote.http11.Http11NioProtocol : Initializing ProtocolHandler ["http-nio-8080"] 
+2020:11:20 16:12:14.235 INFO  --- [main] o.a.catalina.core.StandardService : Starting service [Tomcat] 
+2020:11:20 16:12:14.235 INFO  --- [main] o.a.catalina.core.StandardEngine : Starting Servlet engine: [Apache Tomcat/9.0.39] 
+2020:11:20 16:12:14.324 INFO  --- [main] o.a.c.c.C.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext 
+2020:11:20 16:12:14.325 INFO  --- [main] o.s.b.w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2631 ms 
+2020:11:20 16:12:14.529 INFO  --- [main] o.s.s.c.ThreadPoolTaskExecutor : Initializing ExecutorService 'applicationTaskExecutor' 
+2020:11:20 16:12:14.709 INFO  --- [main] o.a.coyote.http11.Http11NioProtocol : Starting ProtocolHandler ["http-nio-8080"] 
+2020:11:20 16:12:14.736 INFO  --- [main] o.s.b.w.e.tomcat.TomcatWebServer : Tomcat started on port(s): 8080 (http) with context path '' 
+2020:11:20 16:13:09.156 INFO  --- [main] o.s.b.w.e.tomcat.TomcatWebServer : Tomcat initialized with port(s): 8080 (http) 
+2020:11:20 16:13:09.171 INFO  --- [main] o.a.coyote.http11.Http11NioProtocol : Initializing ProtocolHandler ["http-nio-8080"] 
+2020:11:20 16:13:09.171 INFO  --- [main] o.a.catalina.core.StandardService : Starting service [Tomcat] 
+2020:11:20 16:13:09.172 INFO  --- [main] o.a.catalina.core.StandardEngine : Starting Servlet engine: [Apache Tomcat/9.0.39] 
+2020:11:20 16:13:09.269 INFO  --- [main] o.a.c.c.C.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext 
+2020:11:20 16:13:09.269 INFO  --- [main] o.s.b.w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2394 ms 
+2020:11:20 16:13:09.533 INFO  --- [main] o.s.s.c.ThreadPoolTaskExecutor : Initializing ExecutorService 'applicationTaskExecutor' 
+2020:11:20 16:13:09.827 INFO  --- [main] o.a.coyote.http11.Http11NioProtocol : Starting ProtocolHandler ["http-nio-8080"] 
+2020:11:20 16:13:09.919 INFO  --- [main] o.s.b.w.e.tomcat.TomcatWebServer : Tomcat started on port(s): 8080 (http) with context path '' 
+2020:11:20 16:14:45.874 INFO  --- [main] com.example.demo.DemoApplication : Starting DemoApplication using Java 12.0.2 on DESKTOP-MAEU7DJ with PID 12884 (C:\pjt\spring-pjt-all\custom-logger-test\build\classes\java\main started by jiyoung in C:\pjt\spring-pjt-all\custom-logger-test) 
+2020:11:20 16:14:45.875 DEBUG --- [main] com.example.demo.DemoApplication : Running with Spring Boot v2.4.0, Spring v5.3.1 
+2020:11:20 16:14:45.875 INFO  --- [main] com.example.demo.DemoApplication : The following profiles are active: local,core 
+2020:11:20 16:14:48.277 INFO  --- [main] o.s.b.w.e.tomcat.TomcatWebServer : Tomcat initialized with port(s): 8080 (http) 
+2020:11:20 16:14:48.295 INFO  --- [main] o.a.catalina.core.StandardService : Starting service [Tomcat] 
+2020:11:20 16:14:48.296 INFO  --- [main] o.a.catalina.core.StandardEngine : Starting Servlet engine: [Apache Tomcat/9.0.39] 
+2020:11:20 16:14:48.413 INFO  --- [main] o.a.c.c.C.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext 
+2020:11:20 16:14:48.413 INFO  --- [main] o.s.b.w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2472 ms 
+2020:11:20 16:14:48.764 INFO  --- [main] o.s.s.c.ThreadPoolTaskExecutor : Initializing ExecutorService 'applicationTaskExecutor' 
+2020:11:20 16:14:49.014 INFO  --- [main] o.s.b.w.e.tomcat.TomcatWebServer : Tomcat started on port(s): 8080 (http) with context path '' 
+2020:11:20 16:14:49.029 INFO  --- [main] com.example.demo.DemoApplication : Started DemoApplication in 4.035 seconds (JVM running for 4.476) 
+2020:11:20 16:15:12.594 INFO  --- [main] o.s.b.w.e.tomcat.TomcatWebServer : Tomcat initialized with port(s): 8080 (http) 
+2020:11:20 16:15:12.607 INFO  --- [main] o.a.coyote.http11.Http11NioProtocol : Initializing ProtocolHandler ["http-nio-8080"] 
+2020:11:20 16:15:12.608 INFO  --- [main] o.a.catalina.core.StandardService : Starting service [Tomcat] 
+2020:11:20 16:15:12.608 INFO  --- [main] o.a.catalina.core.StandardEngine : Starting Servlet engine: [Apache Tomcat/9.0.39] 
+2020:11:20 16:15:12.694 INFO  --- [main] o.a.c.c.C.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext 
+2020:11:20 16:15:12.695 INFO  --- [main] o.s.b.w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2255 ms 
+2020:11:20 16:15:12.889 INFO  --- [main] o.s.s.c.ThreadPoolTaskExecutor : Initializing ExecutorService 'applicationTaskExecutor' 
+2020:11:20 16:15:13.084 INFO  --- [main] o.a.coyote.http11.Http11NioProtocol : Starting ProtocolHandler ["http-nio-8080"] 
+2020:11:20 16:15:13.112 INFO  --- [main] o.s.b.w.e.tomcat.TomcatWebServer : Tomcat started on port(s): 8080 (http) with context path '' 
