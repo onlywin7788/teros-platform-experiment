@@ -1,0 +1,24 @@
+server:
+  port: 38080
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+spring:
+  application:
+    name: teros-platform-dashboard
+  profiles:
+    active: local # default setting
+  devtools:
+    livereload:
+      enabled: true
+  thymeleaf:
+    prefix: file:src/main/resources/templates/
+    cache: false
+    resources:
+      static-locations: file:src/main/resources/static/
+      cache-period: 0
+extra:
+  param:
+    central-server: http://localhost:38081

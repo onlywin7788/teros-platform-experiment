@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layouts/layout}"
+>
+<head></head>
+
+<div layout:fragment="content">
+
+
+  <script type="text/javascript">
+    
+    // thymeleaf value
+    /*<![CDATA[*/
+    var update_flag = "[[${update}]]";
+    var update_id = "[[${id}]]";
+    /*]]>*/
+  
+    var method_menu_id_array = [];
+    var method_menu_id = 0;
+    var spanIDPrefix = "method-menu_";
+    
+    function send_insert()
+    {
+      send_submit(0);
+    }
+
+    function send_update()
+    {
+      send_submit(1);
+    }
+    
+    function check_validation()
+    {
+      // basic info
+
+      var checkArray = [];
+      checkArray.push("text-api-name");
+      checkArray.push("text-api-version");
+      checkArray.push("text-api-target-url");
+
+      var error = 0;
+      for (var i=0; i< checkArray.length; i++)
+      {
+        checkId = checkArray[i];
+        if($("#" + checkId).val().length == 0)
+        {
+          $("#" + checkId).addClass("is-invalid");
+          error = 1;
+        }
+        
+      }
+
+
+      var checkArray = [];
+      checkArray.push(".cls-source-path");
+      checkArray.push(".cls-target-path");
+
+      // append info
+      for (var i in method_menu_id_array) {
+        
+        var spanID = method_menu_id_array[i];
+         
+        for (var i=0; i< checkArray.length; i++)
+        {
+          checkId = checkArray[i];
+          if($("#" + spanID).find(checkId).val().length == 0)
+          {
+            $("#" + spanID).find(checkId).addClass("is-invalid");
+            error = 1;
+          }
+        }
+      }
+
+      if(error == 1)
+        return false;
+      return true;
+    }
+
+    function send_submit(update_flag)
+    {
+      if(check_validation() == false)
+      {
+        alert('입력하지 않은 정보가 존재합니다.');
+        return;
+      }
+
+      if(method_menu_id_array.length == 0)
+      {
+        alert('하나 이상의 API PATH 정의가 필요합니다.');
+        return;
+      }
+
+      var requestData =
+      {
+        "apiName" : $("#text-api-name").val()
+        ,"description" : $("#text-api-description").val()
+        ,"targetUrl" : $("#text-api-target-url").val()
+        ,"version" : $("#text-api-version").val()
+      };
+      requestData = JSON.stringify(requestData);
+
+      var method = "POST";
+      var api_url = "/v1/api";
+      var alert_title = "생성";
+      if(update_flag == "1")
+      {
+        method = "PUT";
+        api_url = "/v1/api/" + update_id;
+        alert_title = "수정";
+      }
+
+      res = requestAPI(api_url, requestData, method);
+      
+      lastID = 0;
+      if(update_flag == "1")
+        lastID = update_id;
+      else
+        lastID = res.data.apiId;
+      
+      send_insert_append(lastID);
+
+      if (!alert("API 가 정상적으로 " + alert_title + "되었습니다.")) {
+        location.href = "/api-development/api";
+      }
+    }
+
+    function send_insert_append(lastID)
+    {
+      res = requestAPI("/v1/api-path-by-api-id/" + lastID, null, "DELETE");
+
+      for (var i in method_menu_id_array) {
+        var spanID = method_menu_id_array[i];
+        
+        var method_id = $("#" + spanID).find('.cls-path-method').val();        
+        var source_path = $("#" + spanID).find('.cls-source-path').val();
+        var target_path = $("#" + spanID).find('.cls-target-path').val();
+        var description = $("#" + spanID).find('.cls-description').val();
+
+        var requestData =
+        {
+          "apiId" : lastID
+          ,"apiMethodId" : method_id
+          ,"sourceUri" : source_path
+          ,"targetUri" : target_path
+          ,"description" : description
+        };
+        requestData = JSON.stringify(requestData);
+        res = requestAPI("/v1/api-path", requestData, "POST");
+      }
+
+    }
+
+    function send_delete()
+    {
+       if (confirm("해당 API 정보를 삭제하시겠습니까?") == true) {
+           res = requestAPI("/v1/api/" + update_id, null, "DELETE");
+           location.href = "/api-development/api";
+        }
+    }
+
+    function appendMethodMenu()
+    {
+      var html = requestHTML("/api-development/api/module/input_method");
+      method_menu_id++;
+
+      var spanID = spanIDPrefix + method_menu_id;
+
+      html = "<span id='" + spanID + "'>" + html + "</span>";
+      $("#span-method-menu").append(html);
+
+      method_menu_id_array.push(spanID);
+      return spanID;
+    }
+
+    function removeMethodMenu(event)
+    {
+        if (confirm("해당 API 경로를 삭제하시겠습니까?") == true) {
+           var parentSpanID = $(event).closest("span").attr("id");
+           $("#" + parentSpanID).remove();
+
+           var spanIdx = method_menu_id_array.indexOf(parentSpanID);
+           method_menu_id_array.splice(spanIdx, 1);
+        }
+    }
+
+    function onCreateContents()
+    {
+      // 기본 API 정의 목록
+      res = requestAPI("/v1/api/" + update_id, null, "GET");
+      
+      var apiName = res.data.apiName;
+      var version = res.data.version;
+      var description = res.data.description;
+      var targetUrl = res.data.targetUrl;
+
+      $("#text-api-name").val(apiName);
+      $("#text-api-version").val(version);
+      $("#text-api-description").val(description);
+      $("#text-api-target-url").val(targetUrl);
+      
+      // API PATH 정의
+      res = requestAPI("/v1/api-path-by-api-id/" + update_id, null, "GET");
+      var resList = res.list;
+      
+      for (var i in resList) {
+       
+        var spanID = appendMethodMenu();
+        $("#" + spanID).find('.cls-path-method').val(resList[i].apiMethodId);        
+        $("#" + spanID).find('.cls-source-path').val(resList[i].sourceUri);
+        $("#" + spanID).find('.cls-target-path').val(resList[i].targetUri);
+        $("#" + spanID).find('.cls-description').val(resList[i].description);
+
+      }      
+    }
+
+    function onInitialize()
+    {
+      if(update_flag == "1")
+      {
+        $("#span-edit").show();
+        if(update_flag == "1")
+          onCreateContents();
+      }
+      else
+      {
+        $("#span-create").show();
+      }
+    }
+
+    $(document).ready(function () {
+
+        onInitialize();
+
+      });
+    
+  </script>
+
+
+  <div class="wrapper">
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-2">
+              <div class="breadcrumb-bar navbar sticky-top">
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item active">API 개발</li>
+                    <li class="breadcrumb-item active">API 정의</li>
+                  </ol>
+                </nav>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <!-- /.container-fluid -->
+      </section>
+
+      <!---------------------- Main content ---------------------->
+      <section class="content" style="margin-right:250px;">
+
+
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header">
+                  <h2 class="card-title">API 기본 정보</h2>
+                  </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+
+                  <form role="form">
+                    <div class="card-body">
+                      <div class="form-group">
+                        <label>API 명</label>
+                        <input type="text" class="form-control" id="text-api-name">
+                      </div>
+                      
+                      <div class="form-group">
+                        <label>버전</label>
+                        <input type="text" class="form-control" id="text-api-version">
+                      </div>
+
+                      <div class="form-group">
+                        <label>TARGET URL</label>
+                        <input type="text" class="form-control" id="text-api-target-url">
+                      </div>
+
+                      <div class="form-group">
+                        <label>설명 (선택사항)</label>
+                        <input type="text" class="form-control" id="text-api-description">
+                      </div>
+
+                  </form>
+
+                </div>
+                <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+
+            </div>
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+
+      </section>
+      <!-- /.content -->
+
+      <section class="content" style="margin-right:250px;">
+
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header">
+                  <h2 class="card-title">API 세부 명세</h2>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+
+                  <form role="form">
+                    <div class="card-body">
+                      
+                      <div class="form-group">
+                        <span>
+                          <input style="width:120px"
+                            type="button"
+                            class="btn btn-info btn-lg"
+                            id="btn-api-create"
+                            value="API 경로 추가"
+                            onclick="appendMethodMenu()"
+                          />
+                      </span>
+
+                      <br/><br/>
+
+                      <span id="span-method-menu">
+                      </span>
+
+                      </div>
+                    </div>
+                  </form>
+
+                </div>
+                <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+
+            </div>
+            <!-- /.col -->
+
+            <span style="margin:0 auto; display:none;" id="span-create">
+                <input style="width:150px"
+                  type="button"
+                  class="btn btn-primary btn-lg"
+                  id="btn-api-create"
+                  onclick="send_insert()"
+                  value="신규 생성"
+                />
+            </span>
+            
+            
+            <span style="margin:0 auto; display:none;" id="span-edit">
+                <input style="width:100px"
+                  type="button"
+                  class="btn btn-primary btn-lg"
+                  id="btn-api-create"
+                  onclick="send_update()"
+                  value="수정"
+                />
+                &nbsp;
+                <input style="width:100px"
+                  type="button"
+                  class="btn btn-primary btn-lg"
+                  id="btn-api-create"
+                  onclick="send_delete()"
+                  value="삭제"
+                />
+
+            </span>
+
+            <br/>
+            <br/>
+            <br/>
+
+          </div>
+          <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+
+      </section>
+
+
+    </div>
+    <!-- /.content-wrapper -->
+
+  </div>
+</div>
+</html>

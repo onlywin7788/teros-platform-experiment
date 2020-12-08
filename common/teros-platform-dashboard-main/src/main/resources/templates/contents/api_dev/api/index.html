@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/layout}"
+>
+  <head>
+    <script type="text/javascript">
+      function btn_edit_api(id) {
+        location.href = "/api-development/api/" + id;
+      }
+
+      function onCreateList() {
+        res = requestAPI("/v1/api", null, "GET");
+        //resData = jsonObjectParser(res);
+
+        var resList = res.list;
+
+        for (var i in resList) {
+          var id = resList[i].apiId;
+          var name = resList[i].apiName;
+          var version = resList[i].version;
+          var targetUrl = resList[i].targetUrl;
+          var description = resList[i].description;
+          var create_time = resList[i].createDtime;
+          var modify_time = resList[i].modifyDtime;
+
+          var append = "";
+          append +=
+            "<tr style='cursor:pointer;' onclick='btn_edit_api(" + id + ")'>";
+          append += "<td>" + (i * 1 + 1) + "</td>";
+          append += "<td>" + name + "-" + version + "</td>";
+          append += "<td>" + targetUrl + "</td>";
+          append += "<td>" + create_time + "</td>";
+          append += "<td>" + modify_time + "</td>";
+          append += "<td>" + description + "</td>";
+          append += "</tr>";
+
+          $("#tbody-api-list").append(append);
+        }
+      }
+
+      $(document).ready(function () {
+        $("#btn-api-create").click(function () {
+          location.href = "/api-development/api/create";
+        });
+
+        onCreateList();
+      });
+    </script>
+  </head>
+
+  <div layout:fragment="content">
+    <div class="wrapper">
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <div class="container-fluid">
+            <div class="row mb-2">
+              <div class="col-sm-2">
+                <div class="breadcrumb-bar navbar sticky-top">
+                  <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                      <li class="breadcrumb-item active">API 개발</li>
+                      <li class="breadcrumb-item active">API</li>
+                    </ol>
+                  </nav>
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <!-- /.container-fluid -->
+        </section>
+
+        <!---------------------- Main content ---------------------->
+        <section class="content">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">API 정의 목록</h3>
+                  </div>
+                  <!-- /.card-header -->
+                  <div class="card-body">
+                    <span style="float: right">
+                      <div class="form-group">
+                        <input
+                          type="button"
+                          class="btn btn-primary"
+                          id="btn-api-create"
+                          value="신규 생성"
+                        />
+                      </div>
+                    </span>
+
+                    <table
+                      id="example2"
+                      class="table table-bordered table-hover"
+                    >
+                      <thead style="text-align: left">
+                        <tr>
+                          <th style="width: 10px">#</th>
+                          <th style="width: 300px">API 명</th>
+                          <th style="width: 300px">TARGET URL</th>
+                          <th style="width: 150px">생성 일시</th>
+                          <th style="width: 150px">수정 일시</th>
+                          <th>설명</th>
+                        </tr>
+                      </thead>
+                      <tbody id="tbody-api-list"></tbody>
+                    </table>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+              </div>
+              <!-- /.col -->
+            </div>
+            <!-- /.row -->
+          </div>
+          <!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+      </div>
+      <!-- /.content-wrapper -->
+    </div>
+  </div>
+</html>

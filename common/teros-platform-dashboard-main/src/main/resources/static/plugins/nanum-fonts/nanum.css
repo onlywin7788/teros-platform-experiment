@@ -1,0 +1,26 @@
+@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import url(//fonts.googleapis.com/earlyaccess/nanummyeongjo.css);
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css);
+
+.nanumgothic * {
+ font-family: 'Nanum Gothic', sans-serif;
+ font-weight: normal;
+ font-style: normal;
+}
+
+.nanummyeongjo * {
+ font-family: 'Nanum Myeongjo', serif;
+}
+
+.spoqahansans * {
+ font-family: 'Spoqa Han Sans';
+ font-weight: normal;
+ font-style: normal;
+}
+
+@font-face {
+    font-family: 'NEXON Lv1 Gothic OTF';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
