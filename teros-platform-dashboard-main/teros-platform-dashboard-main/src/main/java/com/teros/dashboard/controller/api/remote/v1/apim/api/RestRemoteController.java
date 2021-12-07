@@ -3,7 +3,7 @@ package com.teros.dashboard.controller.api.remote.v1.apim.api;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.teros.dashboard.service.dsm.flow.FlowService;
-import com.teros.ext.common.parser.JsonParser;
+//import com.teros.ext.common.parser.JsonParser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -147,17 +147,17 @@ public class RestRemoteController {
         String configContents = "";
         String result = "";
 
-        JsonParser jsonParser = new JsonParser();
-        jsonParser.loadString(contents);
-        layout = jsonParser.getTextFromElement("layout");
-
-        configContents = flowService.getResult(layout);
-
-        JsonElement rootElement = jsonParser.getJsonElementFromPath("/");
-        JsonObject rootObject = rootElement.getAsJsonObject();
-        jsonParser.addJsonObject(rootObject, "configContents", configContents);
-
-        result = jsonParser.getJsonString();
+//        JsonParser jsonParser = new JsonParser();
+//        jsonParser.loadString(contents);
+//        layout = jsonParser.getTextFromElement("layout");
+//
+//        configContents = flowService.getResult(layout);
+//
+//        JsonElement rootElement = jsonParser.getJsonElementFromPath("/");
+//        JsonObject rootObject = rootElement.getAsJsonObject();
+//        jsonParser.addJsonObject(rootObject, "configContents", configContents);
+//
+//        result = jsonParser.getJsonString();
 
         return result;
     }

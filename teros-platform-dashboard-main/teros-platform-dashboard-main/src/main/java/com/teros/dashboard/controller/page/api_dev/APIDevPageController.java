@@ -45,4 +45,10 @@ public class APIDevPageController {
     public String apiDeploy(Model model) {
         return "contents/api_dev/api_deploy/index";
     }
+
+    // PAGE : LOGIN
+    @GetMapping("/login")
+    public String apiLogin(Model model) {
+        return "contents/api_dev/login3/index";
+    }
 }
