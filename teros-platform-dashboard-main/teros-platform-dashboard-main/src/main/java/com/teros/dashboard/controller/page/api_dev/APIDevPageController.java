@@ -47,8 +47,8 @@ public class APIDevPageController {
     }
 
     // PAGE : LOGIN
-    @GetMapping("/login")
-    public String apiLogin(Model model) {
-        return "contents/api_dev/login3/index";
-    }
+//    @GetMapping("/login")
+//    public String apiLogin(Model model) {
+//        return "contents/api_dev/login/index";
+//    }
 }
