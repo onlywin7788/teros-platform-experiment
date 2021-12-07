@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/layout}">
+    <head>
+        <script type="text/javascript">
+            function btn_edit(id) {
+                location.href = "/api-development/api/contents/" + id;
+            }
+
+            function onCreateList() {
+                res = requestAPI("/central-server/v1/api", null, "GET");
+                //resData = jsonObjectParser(res);
+
+                var resList = res.list;
+
+                for (var i in resList) {
+                    var id = resList[i].apiId;
+                    var name = resList[i].apiName;
+                    var version = resList[i].version;
+                    var targetUrl = resList[i].targetUrl;
+                    var description = resList[i].description;
+                    var create_time = resList[i].createDtime;
+                    var modify_time = resList[i].modifyDtime;
+
+                    var append = "";
+                    append += "<tr>";
+                    append += "<td>" + (
+                        i * 1 + 1
+                    ) + "</td>";
+                    append += "<td>" + name + "-" + version + "</td>";
+                    append += "<td>" + targetUrl + "</td>";
+                    append += "<td>" + create_time + "</td>";
+                    append += "<td>" + modify_time + "</td>";
+                    append += "<td>" + description + "</td>";
+                    append += "<td>";
+                    append += "<span style='cursor:pointer;' data-toggle='dropdown'><i class='fas fa-ellipsis" +
+                            "-v'></i></span>";
+                    append += "<div class='dropdown-menu'><a class='dropdown-item' href='#' onclick='btn_edit(" + id + ")'>수정</a>"
+                    append += "<a class='dropdown-item' href='#'>삭제</a></div>";
+                    append += "</td>";
+                    append += "</tr>";
+
+                    $("#tbody-api-list").append(append);
+                }
+            }
+
+            $(document).ready(function () {
+                $("#btn-api-create").click(function () {
+                    location.href = "/api-development/api/contents/create";
+                });
+
+                onCreateList();
+            });
+        </script>
+    </head>
+
+    <div layout:fragment="content">
+        <div class="wrapper">
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                <nav aria-label="breadcrumb" class="mb-4">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active" aria-current="page">Home</li>
+                        <li class="breadcrumb-item active" aria-current="page">API 개발</li>
+                        <li class="breadcrumb-item active" aria-current="page">API</li>
+                    </ol>
+                </nav>
+
+                <!---------------------- Main content ---------------------->
+                <section class="content">
+                    <div class="container-fluid">
+
+                        <div class="row">
+                            <div class="col-12">
+
+                                <div class="col-md-12">
+
+                                    <div class="card card-primary card-outline">
+                                        <div class="card-header">
+
+                                            <input
+                                                type="button"
+                                                class="btn btn-xs btn-primary btn-flat"
+                                                id="btn-api-create"
+                                                value="API 신규 생성"/>
+
+                                            <div class="card-tools">
+                                                <div class="input-group input-group-sm">
+
+                                                    <input type="text" class="form-control" placeholder="">
+                                                    <div class="input-group-append">
+                                                        <div class="btn btn-primary">
+                                                            <i class="fas fa-search"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- /.card-tools -->
+                                        </div>
+                                        <!-- /.card-header -->
+                                        <div class="card-body table-responsive p-0">
+
+                                            <div class="table-responsive mailbox-messages">
+                                                <table class="table table-head-fixed text-nowrap">
+
+                                                    <thead>
+                                                        <tr>
+                                                            <td style="width: 10px">#</td>
+                                                            <td class="mailbox-subject">API 명</td>
+                                                            <td class="mailbox-subject">TARGET 정보</td>
+                                                            <td class="mailbox-subject">생성 일시</td>
+                                                            <td class="mailbox-date">수정 일시</td>
+                                                            <td>설명</td>
+                                                            <td style="width: 10px"></td>
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody id="tbody-api-list"></tbody>
+
+                                                </tbody>
+                                            </table>
+                                            <!-- /.table -->
+                                        </div>
+                                        <!-- /.mail-box-messages -->
+                                    </div>
+                                    <!-- /.card-body -->
+                                    <!-- /.card -->
+                                </div>
+                                <!-- /.card -->
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                        <!-- /.row -->
+                    </div>
+                    <!-- /.container-fluid -->
+                </section>
+                <!-- /.content -->
+            </div>
+            <!-- /.content-wrapper -->
+        </div>
+    </div>
+</html>

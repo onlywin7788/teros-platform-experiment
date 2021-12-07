@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/layout}">
+    <head>
+        <script type="text/javascript">
+
+            function refreshPage(){
+                location.href = "/data-development/flow-dev";
+            }
+
+            function btn_edit(id) {
+                location.href = "/data-development/flow-design/" + id;
+            }
+
+            function onCreateList() {
+                res = requestAPI("/central-server/v1/flow", null, "GET");
+                //resData = jsonObjectParser(res);
+
+                var resList = res.list;
+
+                for (var i in resList) {
+                    var id = resList[i].flowId;
+                    var name = resList[i].flowName;
+                    var description = resList[i].description;
+                    var create_time = resList[i].createDtime;
+                    var modify_time = resList[i].modifyDtime;
+
+                    var append = "";
+                    append += "<tr>";
+                    append += "<td>" + "<a href='#' onclick='btn_edit(" + id + ")'>" + name + "</a></td>";
+                    append += "<td>" + create_time + "</td>";
+                    append += "<td>" + modify_time + "</td>";
+                    append += "<td>" + description + "</td>";
+                    append += "<td>";
+                    append += "<span style='cursor:pointer;' data-toggle='dropdown'><i class='fas fa-ellipsis" +
+                            "-v'></i></span>";
+                    append += "<div class='dropdown-menu'><a class='dropdown-item' href='#' onclick='btn_edit(" + id + ")'>수정</a>"
+                    append += "<a class='dropdown-item' href='#' onclick='openModalDeleteUserGroup(" + id + ")'>삭제</a></div>";
+                    append += "</td>";
+                    append += "</tr>";
+
+                    $("#tbody-data-list").append(append);
+                }
+            }
+
+            function check_validation() {
+                // basic info
+
+                var checkArray = [];
+                checkArray.push("text-group-name");
+
+                var error = 0;
+                for (var i = 0; i < checkArray.length; i++) {
+                    checkId = checkArray[i];
+                    if ($("#" + checkId).val().length == 0) {
+                        error = 1;
+                    }
+
+                }
+
+                if (error == 1) 
+                    return false;
+                return true;
+            }
+
+            function dataSubmit(isUpdate) {
+                if (check_validation() == false) {
+                    alert('입력하지 않은 정보가 존재합니다.');
+                    return;
+                }
+
+                var requestData = {
+                    "userGroupName": $("#text-group-name").val(),
+                    "description": $("#text-group-description").val()
+                };
+                requestData = JSON.stringify(requestData);
+
+                var method = "POST";
+                var api_url = "/central-server/v1/user-group";
+                alert_title = "생성";
+                if (isUpdate == "true") {
+                    method = "PUT";
+                    api_url = "/central-server/v1/user-group/" + update_id;
+                    alert_title = "수정";
+                }
+
+                res = requestAPI(api_url, requestData, method);
+
+                lastID = 0;
+                if (isUpdate == "1") 
+                    lastID = update_id;
+                else 
+                    lastID = res.data.userGroupId;
+                
+                refreshPage();
+
+            }
+
+            function openModalDataUserGroup(id){
+                if(id == 0){
+                    $("#trigger-modal-data-user-group").click();
+                }
+                else{
+                    $("#trigger-modal-data-user-group").click();   
+                }
+            }
+
+            function openModalDeleteUserGroup(id){
+                if (confirm("해당 Flow 를 삭제하시겠습니까?") == true) {
+                    res = requestAPI("/central-server/v1/user-group/" + id, null, "DELETE");
+                    refreshPage();
+                }
+                
+            }
+
+            
+            function moveFlowDesign(){
+                location.href = "/data-development/flow-design/create";
+            }
+
+            $(document).ready(function () {
+                $("#btn-data-insert").click(function () {
+                    dataSubmit(false);
+                });
+
+                onCreateList();
+
+            });
+        </script>
+    </head>
+
+    <div layout:fragment="content">
+        <div class="wrapper">
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <nav aria-label="breadcrumb" class="mb-4">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active" aria-current="page">Home</li>
+                        <li class="breadcrumb-item active" aria-current="page">데이터 개발</li>
+                        <li class="breadcrumb-item active" aria-current="page">플로우 개발</li>
+                    </ol>
+                </nav>
+
+  
+            <!---------------------- Main content ---------------------->
+            <section class="content">
+                <div class="container-fluid">
+
+                    <div class="row">
+                        <div class="col-12">
+
+                            <div class="col-md-12">
+
+                                <div class="card card-primary card-outline">
+                                    <div class="card-header">
+
+                                        <input
+                                            type="button"
+                                            class="btn btn-xs btn-primary btn-flat"
+                                            value="플로우 생성"
+                                            onclick="moveFlowDesign()"/>
+
+                                        <div class="card-tools">
+
+                                            <div class="input-group input-group-sm">
+
+                                                <input type="text" class="form-control" placeholder="">
+                                                <div class="input-group-append">
+                                                    <div class="btn btn-primary">
+                                                        <i class="fas fa-search"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- /.card-tools -->
+                                    </div>
+                                    <!-- /.card-header -->
+                                    <div class="card-body table-responsive p-0">
+
+                                        <div class="table-responsive mailbox-messages">
+                                            <table class="table table-head-fixed text-nowrap">
+
+                                                <thead>
+                                                    <tr>
+                                                        <td class="mailbox-subject" style="width: 300px">플로우명</td>
+                                                        <td style="width: 50px">생성 일시</td>
+                                                        <td style="width: 50px">수정 일시</td>
+                                                        <td>설명</td>
+                                                        <td style="width: 10px"></td>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody id="tbody-data-list"></tbody>
+                                            </table>
+                                            <!-- /.table -->
+                                        </div>
+                                        <!-- /.mail-box-messages -->
+                                    </div>
+                                    <!-- /.card-body -->
+                                    <!-- /.card -->
+                                </div>
+                                <!-- /.card -->
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                        <!-- /.row -->
+                    </div>
+                    <!-- /.container-fluid -->
+                </section>
+                <!-- /.content -->
+            </div>
+            <!-- /.content-wrapper -->
+        </div>
+    </div>
+</html>

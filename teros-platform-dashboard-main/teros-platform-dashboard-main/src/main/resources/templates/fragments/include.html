@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <footer th:fragment="includeFragment">
+    <script>
+      // get parameter
+      function getParam(sname) {
+        var params = location.search.substr(location.search.indexOf("?") + 1);
+        var sval = "";
+        params = params.split("&");
+        for (var i = 0; i < params.length; i++) {
+          temp = params[i].split("=");
+          if ([temp[0]] == sname) {
+            sval = temp[1];
+          }
+        }
+        return sval;
+      }
+
+      function jsonObjectParser(param) {
+        param = JSON.stringify(param);
+        param = jQuery.parseJSON(param);
+        return param;
+      }
+
+      function requestAPI(url, request_data, requestType) {
+        var return_val = "";
+        var api_url = url;
+        $.ajax({
+          type: requestType,
+          url: api_url,
+          timeout: 1000,
+          async: false,
+          data: request_data,
+          contentType: "application/json",
+          success: function (data, status, xhr) {
+            return_val = data;
+          },
+          error: function (jqXHR, textStatus, errorThrown) {
+            alert("ERROR : " + jqXHR.responseText);
+            return false;
+          },
+        });
+        return return_val;
+      }
+
+      function requestHTML(url) {
+        var return_val = "";
+        $.ajax({
+          type: "GET",
+          url: url,
+          timeout: 1000,
+          async: false,
+          dataType: "html",
+          success: function (data, status, xhr) {
+            return_val = data;
+          },
+          error: function (jqXHR, textStatus, errorThrown) {
+            alert(jqXHR.responseText);
+            return false;
+          },
+        });
+        return return_val;
+      }
+    </script>
+  </footer>
+</html>

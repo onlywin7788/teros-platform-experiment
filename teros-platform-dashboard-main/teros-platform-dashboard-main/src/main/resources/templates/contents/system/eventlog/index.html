@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/layout}">
+    <head>
+        <script type="text/javascript"></script>
+    </head>
+
+    <div layout:fragment="content">
+        <div class="wrapper">
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <nav aria-label="breadcrumb" class="mb-4">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active" aria-current="page">Home</li>
+                        <li class="breadcrumb-item active" aria-current="page">시스템</li>
+                        <li class="breadcrumb-item active" aria-current="page">이벤트 로그</li>
+                    </ol>
+                </nav>
+
+                <!-- option modal -->
+                <div
+                    id="modal-option-detail"
+                    class="modal fixed-left fade"
+                    tabindex="-1"
+                    role="dialog">
+                    <div class="modal-dialog modal-dialog-aside" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h6 class="modal-title">이벤트 로그</h6>
+                            </div>
+                            <div class="modal-body"></div>
+                        </div>
+                    </div>
+                    <!-- modal-bialog .// -->
+                </div>
+                <!-- modal.// -->
+
+                <!---------------------- Main content ---------------------->
+                <section class="content">
+                    <div class="container-fluid">
+
+                        <div class="row">
+                            <div class="col-12">
+
+                                <div class="col-md-12">
+
+                                    <div class="card card-primary card-outline">
+                                        <div class="card-header">
+
+                                            <div class="card-tools">
+
+                                                <div class="input-group input-group-sm">
+
+                                                    <input type="text" class="form-control" placeholder="">
+                                                    <div class="input-group-append">
+                                                        <div class="btn btn-primary">
+                                                            <i class="fas fa-search"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- /.card-tools -->
+                                        </div>
+                                        <!-- /.card-header -->
+                                        <div class="card-body table-responsive p-0">
+
+                                            <div class="table-responsive mailbox-messages">
+                                                <table class="table table-head-fixed text-nowrap table-hover">
+
+                                                    <thead>
+                                                        <tr>
+                                                            <td class="mailbox-subject">발생 시각</td>
+                                                            <td class="mailbox-subject">이벤트명</td>
+                                                            <td class="mailbox-subject">레벨</td>
+                                                            <td class="mailbox-subject">분류</td>
+                                                            <td class="mailbox-date">내용</td>
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody>
+                                                        <tr
+                                                            style="cursor:pointer;"
+                                                            data-toggle="modal"
+                                                            data-target="#modal-option-detail">
+                                                            <td class="mailbox-name">2020.12.14 15:01:00</a>
+                                                        </td>
+                                                        <td class="mailbox-subject">Central-Server Down</td>
+                                                        <td class="mailbox-subject">Error</td>
+                                                        <td class="mailbox-subject">Platform</td>
+                                                        <td class="mailbox-date">Central-Server ternimated cause memory fault. please
+                                                            check the dump file (/home/teros/dump/center-server.20201204.15.00.02)</div>
+                                                        </tr>
+                                                        <tr
+                                                            style="cursor:pointer;"
+                                                            data-toggle="modal"
+                                                            data-target="#modal-option-detail">
+                                                            <td class="mailbox-name">2020.12.14 15:02:00</a>
+                                                            </td>
+                                                            <td class="mailbox-subject">Central-Server</td>
+                                                            <td class="mailbox-subject">Warning</td>
+                                                            <td class="mailbox-subject">Platform</td>
+                                                            <td class="mailbox-date">Central-Server memory usage warning => [Usage : 7192 MB / Maxumum : 8192 MB]</div>
+                                                        </tr>
+                                                        <tr
+                                                            style="cursor:pointer;"
+                                                            data-toggle="modal"
+                                                            data-target="#modal-option-detail">
+                                                            <td class="mailbox-name">2020.12.14 16:10:03</td>
+                                                            <td class="mailbox-subject">API-Control-Manager Down</td>
+                                                            <td class="mailbox-subject">Warning</td>
+                                                            <td class="mailbox-subject">Application</td>
+                                                            <td class="mailbox-date">API-Control-Manager by user action</div>
+                                                        </tr>
+                                                        <tr
+                                                            style="cursor:pointer;"
+                                                            data-toggle="modal"
+                                                            data-target="#modal-option-detail">
+                                                            <td class="mailbox-name">2020.12.14 16:12:05</td>
+                                                            <td class="mailbox-subject">Central-Server Running</td>
+                                                            <td class="mailbox-subject">Info</td>
+                                                            <td class="mailbox-subject">Platform</td>
+                                                            <td class="mailbox-date">Central-Server Running. Listen Port : 38081</div>
+                                                        </tr>
+
+                                                    </tbody>
+
+                                                </table>
+                                                <!-- /.table -->
+                                            </div>
+                                            <!-- /.mail-box-messages -->
+                                </div>
+                                <!-- /.card-body -->
+                                <!-- /.card -->
+                            </div>
+                            <!-- /.card -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+                </div>
+                <!-- /.container-fluid -->
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+    </div>
+</div>
+</html>

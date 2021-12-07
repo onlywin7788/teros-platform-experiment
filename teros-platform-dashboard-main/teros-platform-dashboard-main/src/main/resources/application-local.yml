@@ -1,0 +1,6 @@
+# application-local.yml
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

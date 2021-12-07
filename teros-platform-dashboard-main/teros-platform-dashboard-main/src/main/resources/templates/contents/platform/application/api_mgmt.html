@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/layout}">
+    <head>
+
+
+        
+
+        <script type="text/javascript">
+            function btn_edit_api(id) {
+                location.href = "/api-development/api/" + id;
+            }
+
+            function onCreateList() {
+                res = requestAPI("/central-server/v1/app", null, "GET");
+                //resData = jsonObjectParser(res);
+
+                var resList = res.list;
+                var index = 1;
+
+                for (var i in resList) {
+
+                    var id = resList[i].appId;
+                    var name = resList[i].appName;
+                    var hostInfo = resList[i].hostInfo;
+                    var typeId = resList[i].appTypeId;
+                    var description = resList[i].description;
+                    var create_time = resList[i].createDtime;
+                    var modify_time = resList[i].modifyDtime;
+                    var append = "";
+
+                    if (typeId != 1) 
+                        continue;
+                    
+                    append += "<tr style='cursor:pointer;' onclick='btn_edit_api(" + id + ")'>";
+                    append += "<td>" + (
+                        index++
+                    ) + "</td>";
+                    append += "<td>" + name + "</td>";
+                    append += "<td>" + hostInfo + "</td>";
+                    append += "<td>" + create_time + "</td>";
+                    append += "<td>" + modify_time + "</td>";
+                    append += "<td>" + description + "</td>";
+                    append += "</tr>";
+
+                    $("#tbody-api-list").append(append);
+                }
+            }
+
+            $(document).ready(function () {
+                $("#btn-api-create").click(function () {
+                    location.href = "/api-development/api/create";
+                });
+
+                onCreateList();
+            });
+        </script>
+
+    </head>
+
+    <div layout:fragment="content">
+        <div class="wrapper">
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <nav aria-label="breadcrumb" class="mb-4">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active" aria-current="page">Home</li>
+                        <li class="breadcrumb-item active" aria-current="page">플랫폼 관리</li>
+                        <li class="breadcrumb-item active" aria-current="page">애플리케이션</li>
+                    </ol>
+                </nav>
+
+                <!-- New Modal -->
+                <div
+                    class="modal fade"
+                    id="modal-add-connection-info"
+                    tabindex="-1" data-backdrop="static" data-keyboard="false"
+                    role="dialog">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h6 class="modal-title">API 애플리케이션 연결 정보</h6>
+                                <button type="button" class="close" data-dismiss="modal">×</button>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                            <form role="form">
+                                <div class="card-body">
+
+                                    <div class="form-group input-group-sm">
+                                        <label>애플리케이션 타입</label>
+                                        <select class="form-control" id="select-app-type">
+                                            <option>API Control Manager</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group input-group-sm">
+                                        <label>애플리케이션 명</label>
+                                        <input type="text" class="form-control" id="text-app-name">
+                                    </div>
+
+                                    <div class="form-group input-group-sm">
+                                        <label>연결 정보</label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="text-app-host-info"
+                                            placeholder="http://127.0.0.1:8080">
+                                    </div>
+
+                                    <div class="form-group input-group-sm">
+                                        <label>설명</label>
+                                        <input type="text" class="form-control" id="text-app-desc">
+                                    </div>
+
+                                </div>
+                            </form>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button
+                                type="button"
+                                class="btn btn-secondary btn-sm btn-flat"
+                                data-dismiss="modal">닫기</button>
+                            <button type="button" class="btn btn-primary btn-sm btn-flat">확인</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!---------------------- Main content ---------------------->
+            <section class="content">
+                <div class="container-fluid">
+
+                    <div class="row">
+                        <div class="col-12">
+
+                            <div class="card">
+
+                                <!-- nav tab-->
+
+                                <ul class="nav nav-tabs">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="/platform/management/application/api">API 애플리케이션</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/platform/management/application/data">DATA 애플리케이션</a>
+                                    </li>
+                                </ul>
+
+                                <!-- ./nav tab -->
+
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-2">
+
+                                            <input
+                                                type="button"
+                                                class="btn btn-primary btn-flat mb-3 col-md-12"
+                                                value="호스트 등록"
+                                                data-toggle="modal"
+                                                data-target="#modal-add-connection-info"/>
+
+                                            <!-- /.card -->
+                                            <div class="card card-primary card-outline">
+                                                <div class="card-header">
+                                                    <h3 class="card-title">호스트 탐색기</h3>
+
+                                                    <div class="card-tools">
+                                                        <button type="button" class="btn btn-tool mr-2" onclick="refreshHostTreeview()">
+                                                            <i class="fas fa-sync-alt"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="card-body p-0">
+                                                
+                                                    <table class="table">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    <i class="nav-icon fas fa-server mr-2" style="font-size: 0.8rem;"></i>
+                                                                    HOST-001
+                                                                </td>
+                                                                <td>
+                                                                    <span style='cursor:pointer;' data-toggle='dropdown'>
+                                                                        <i class='fas fa-sort-down'></i>
+                                                                    </span>
+                                                                    <div class='dropdown-menu'>
+                                                                        <a class='dropdown-item' href='#'>매니저 추가</a>
+                                                                        <a class='dropdown-item' href='#'>호스트 수정</a>
+                                                                        <a class='dropdown-item' href='#'>호스트 삭제</a>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <i class="nav-icon fas fa-laptop ml-3 mr-2" style="font-size: 0.8rem; color: blue;"></i>
+                                                                    API-CM-001-A
+                                                                </td>
+                                                                <td>
+                                                                    <span style='cursor:pointer;' data-toggle='dropdown'>
+                                                                        <i class='fas fa-sort-down'></i>
+                                                                    </span>
+                                                                    <div class='dropdown-menu'>
+                                                                        <a class='dropdown-item' href='#'>매니저 수정</a>
+                                                                        <a class='dropdown-item' href='#'>매니저 삭제</a>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <i class="nav-icon fas fa-laptop ml-3 mr-2" style="font-size: 0.8rem; color: blue;"></i>
+                                                                    API-CM-001-B
+                                                                </td>
+                                                                <td>
+                                                                    <span style='cursor:pointer;' data-toggle='dropdown'>
+                                                                        <i class='fas fa-sort-down'></i>
+                                                                    </span>
+                                                                    <div class='dropdown-menu'>
+                                                                        <a class='dropdown-item' href='#'>매니저 수정</a>
+                                                                        <a class='dropdown-item' href='#'>매니저 삭제</a>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <i class="nav-icon fas fa-server mr-2" style="font-size: 0.8rem;"></i>
+                                                                    HOST-002
+                                                                </td>
+                                                                <td>
+                                                                    <span style='cursor:pointer;' data-toggle='dropdown'>
+                                                                        <i class='fas fa-sort-down'></i>
+                                                                    </span>
+                                                                    <div class='dropdown-menu'>
+                                                                        <a class='dropdown-item' href='#'>매니저 추가</a>
+                                                                        <a class='dropdown-item' href='#'>호스트 수정</a>
+                                                                        <a class='dropdown-item' href='#'>호스트 삭제</a>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <i class="nav-icon fas fa-laptop ml-3 mr-2" style="font-size: 0.8rem; color: blue;"></i>
+                                                                    API-CM-002-A
+                                                                </td>
+                                                                <td>
+                                                                    <span style='cursor:pointer;' data-toggle='dropdown'>
+                                                                        <i class='fas fa-sort-down'></i>
+                                                                    </span>
+                                                                    <div class='dropdown-menu'>
+                                                                        <a class='dropdown-item' href='#'>매니저 수정</a>
+                                                                        <a class='dropdown-item' href='#'>매니저 삭제</a>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <i class="nav-icon fas fa-laptop ml-3 mr-2" style="font-size: 0.8rem; color: blue;"></i>
+                                                                    API-CM-002-B
+                                                                </td>
+                                                                <td>
+                                                                    <span style='cursor:pointer;' data-toggle='dropdown'>
+                                                                        <i class='fas fa-sort-down'></i>
+                                                                    </span>
+                                                                    <div class='dropdown-menu'>
+                                                                        <a class='dropdown-item' href='#'>매니저 수정</a>
+                                                                        <a class='dropdown-item' href='#'>매니저 삭제</a>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+
+                                                </div>
+                                                <!-- /.card-body -->
+                                            </div>
+                                            <!-- /.card -->
+                                        </div>
+
+                                        <!-- /.col -->
+                                        <div class="col-md-10">
+
+                                            <div class="card card-primary card-outline">
+                                                <div class="card-header">
+                                                    <h3 class="card-title">어플리케이션 현황</h3>
+
+                                                    <div class="card-tools">
+                                                        <div class="input-group input-group-sm">
+                                                            <input type="text" class="form-control" placeholder="">
+                                                            <div class="input-group-append">
+                                                                <div class="btn btn-primary">
+                                                                    <i class="fas fa-search"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- /.card-tools -->
+                                                </div>
+                                                <!-- /.card-header -->
+                                                <div class="card-body p-0">
+                                                    <div class="mailbox-controls"></div>
+                                                    <!-- /.float-right -->
+                                                </div>
+                                                <div class="table-responsive mailbox-messages">
+                                                    <table class="table">
+                                                        <tbody>
+
+                                                            <tr>
+                                                                <td class="mailbox-name">
+                                                                    <a href="read-mail.html">Rest-to-Kafka</a>
+                                                                </td>
+                                                                <td class="mailbox-subject">REST 에서 데이터를 Fetch 하여 Kafka 에 적체 (XML 전문 테스트)</td>
+                                                                <td class="mailbox-subject">ver 1.0.0.0</td>
+                                                                <td class="mailbox-date">Running</td>
+                                                                <td class="mailbox-name">
+                                                                    <a href="read-mail.html">상세 보기</a>
+                                                                </td>
+
+                                                            </tr>
+                                                            <tr>
+
+                                                                <td class="mailbox-name">
+                                                                    <a href="read-mail.html">Kafka-To-Hive</a>
+                                                                </td>
+                                                                <td class="mailbox-subject">Kafka 에서 데이터를 Fetch 하여 Kafka 에 적체 (Json 전문 테스트)</td>
+                                                                <td class="mailbox-subject">ver 0.0.0.1</td>
+                                                                <td class="mailbox-date">Running</td>
+                                                                <td class="mailbox-name">
+                                                                    <a href="read-mail.html">상세 보기</a>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+
+                                                                <td class="mailbox-name">
+                                                                    <a href="read-mail.html">BigData-ETL</a>
+                                                                </td>
+                                                                <td class="mailbox-subject">Big Data ETL 플로우 테스트</td>
+                                                                <td class="mailbox-subject">ver 0.0.0.1</td>
+                                                                <td class="mailbox-date">Running</td>
+                                                                <td class="mailbox-name">
+                                                                    <a href="read-mail.html">상세 보기</a>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+
+                                                                <td class="mailbox-name">
+                                                                    <a href="read-mail.html">API-Gateway-test</a>
+                                                                </td>
+                                                                <td class="mailbox-subject">API 전문 수신 테스트</td>
+                                                                <td class="mailbox-subject">ver 0.0.0.1</td>
+                                                                <td class="mailbox-date">Stop</td>
+                                                                <td class="mailbox-name">
+                                                                    <a href="read-mail.html">상세 보기</a>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+
+                                                                <td class="mailbox-name">
+                                                                    <a href="read-mail.html">TEST-001-A</a>
+                                                                </td>
+                                                                <td class="mailbox-subject">Data-Service 개발 테스트</td>
+                                                                <td class="mailbox-subject">ver 0.0.0.1</td>
+                                                                <td class="mailbox-date">Stop</td>
+                                                                <td class="mailbox-name">
+                                                                    <a href="read-mail.html">상세 보기</a>
+                                                                </td>
+                                                            </tr>
+
+                                                        </tbody>
+                                                    </table>
+                                                    <!-- /.table -->
+                                                </div>
+                                                <!-- /.mail-box-messages -->
+                                            </div>
+                                            <!-- /.card-body -->
+
+                                            <!-- /.card -->
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                            <!-- /.card -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+                </div>
+                <!-- /.container-fluid -->
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+    </div>
+</div>
+</html>

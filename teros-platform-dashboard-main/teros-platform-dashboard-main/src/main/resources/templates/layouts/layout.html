@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html
+        lagn="ko"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Teros Platform Dashboard</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="/plugins/ionicons/ionicons.min.css">
+    <link rel="stylesheet" href="/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <link rel="stylesheet" href="/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <link rel="stylesheet" href="/plugins/bootstrap-treeview/css/bootstrap-treeview.min.css">
+    <link rel="stylesheet" href="/plugins/jqvmap/jqvmap.min.css">
+    <link rel="stylesheet" href="/plugins/main-layout/css/adminlte.css">
+    <link rel="stylesheet" href="/plugins/drawflow/css/drawflow.min.css">
+    <link rel="stylesheet" href="/plugins/drawflow/css/beautiful.modify.css">
+    <link rel="stylesheet" href="/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="/plugins/teros/css/teros.css">
+    <link rel="stylesheet" href="/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <link rel="stylesheet" href="/plugins/summernote/summernote-bs4.css">
+    <link rel="stylesheet" href="/plugins/nanum-fonts/nanum.css">
+
+    
+
+    <!-- JS -->
+    <script src="/plugins/jquery/jquery.min.js"></script>
+    <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/plugins/bootstrap-treeview/js/bootstrap-treeview.min.js"></script>
+    <script src="/plugins/chart.js/Chart.min.js"></script>
+    <script src="/plugins/jqvmap/jquery.vmap.min.js"></script>
+    <script src="/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+    <script src="/plugins/jquery-knob/jquery.knob.min.js"></script>
+    <script src="/plugins/moment/moment.min.js"></script>
+    <script src="/plugins/drawflow/js/drawflow.min.js"></script>
+    <script src="/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="/plugins/summernote/summernote-bs4.min.js"></script>
+    <script src="/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <script src="/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <script src="/plugins/main-layout/js/adminlte.js"></script>
+    <script src="/plugins/select2/js/select2.min.js"></script>
+    <script src="/plugins/main-layout/js/pages/dashboard.js"></script>
+    <script src="/plugins/main-layout/js/demo.js"></script>
+    <script>
+        $.widget.bridge("uibutton", $.ui.button);
+      </script>
+
+
+</head>
+<header th:replace="fragments/include :: includeFragment"></header>
+<!--
+<body class="hold-transition layout-fixed text-sm">
+-->
+<body class="hold-transition layout-fixed text-sm" style="font-size:0.800rem !important;">
+<header th:replace="fragments/header :: headerFragment"></header>
+<div layout:fragment="content"></div>
+<footer th:replace="fragments/footer :: footerFragment"></footer>
+</body>
+</html>

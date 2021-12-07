@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/layout}">
+    <head>
+        <script type="text/javascript"></script>
+    </head>
+
+    <div layout:fragment="content">
+        <div class="wrapper">
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                <nav aria-label="breadcrumb" class="mb-4">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active" aria-current="page">Home</li>
+                        <li class="breadcrumb-item active" aria-current="page">데이터 개발</li>
+                        <li class="breadcrumb-item active" aria-current="page">커넥터</li>
+                    </ol>
+                </nav>
+
+                <!-- New Modal -->
+                <div class="modal fade" id="modal-add-user" tabindex="-1" role="dialog" data-backdrop='static' data-keyboard='false'>
+                    <div class="modal-dialog modal-xl">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h6 class="modal-title">커넥터 정보</h6>
+                                <button type="button" class="close" data-dismiss="modal">×</button>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                            <form role="form">
+                                <div class="card-body">
+
+                                    <div class="form-group">
+                                        <label>Database</label>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <img
+                                                    src="https://blog.asamaru.net/res/img/post/2016/12/mariadb-icon.png"
+                                                    style="width:70px; height: 70px;">
+                                                <img
+                                                    src="https://blog.asamaru.net/res/img/post/2016/12/mariadb-icon.png"
+                                                    style="width:70px; height: 70px;">
+                                                <img
+                                                    src="https://blog.asamaru.net/res/img/post/2016/12/mariadb-icon.png"
+                                                    style="width:70px; height: 70px;">
+                                                <img
+                                                    src="https://blog.asamaru.net/res/img/post/2016/12/mariadb-icon.png"
+                                                    style="width:70px; height: 70px;">
+                                                <img
+                                                    src="https://blog.asamaru.net/res/img/post/2016/12/mariadb-icon.png"
+                                                    style="width:70px; height: 70px;">
+                                                <img
+                                                    src="https://blog.asamaru.net/res/img/post/2016/12/mariadb-icon.png"
+                                                    style="width:70px; height: 70px;">
+                                                <img
+                                                    src="https://blog.asamaru.net/res/img/post/2016/12/mariadb-icon.png"
+                                                    style="width:70px; height: 70px;">
+                                                <img
+                                                    src="https://blog.asamaru.net/res/img/post/2016/12/mariadb-icon.png"
+                                                    style="width:70px; height: 70px;">
+                                                <img
+                                                    src="https://blog.asamaru.net/res/img/post/2016/12/mariadb-icon.png"
+                                                    style="width:70px; height: 70px;">
+                                                <img
+                                                    src="https://blog.asamaru.net/res/img/post/2016/12/mariadb-icon.png"
+                                                    style="width:70px; height: 70px;">
+                                                <img
+                                                    src="https://blog.asamaru.net/res/img/post/2016/12/mariadb-icon.png"
+                                                    style="width:70px; height: 70px;">
+                                                <img
+                                                    src="https://blog.asamaru.net/res/img/post/2016/12/mariadb-icon.png"
+                                                    style="width:70px; height: 70px;">
+                                                <img
+                                                    src="https://blog.asamaru.net/res/img/post/2016/12/mariadb-icon.png"
+                                                    style="width:70px; height: 70px;">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>MiddleWare</label>
+                                        <input type="text" class="form-control" id="text-user-name">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Protocol</label>
+                                        <input type="text" class="form-control" id="text-user-email">
+                                    </div>
+
+                                </div>
+                            </form>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button
+                                type="button"
+                                class="btn btn-secondary btn-sm btn-flat"
+                                data-dismiss="modal">닫기</button>
+                            <button type="button" class="btn btn-primary btn-sm btn-flat">확인</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!---------------------- Main content ---------------------->
+            <section class="content">
+                <div class="container-fluid">
+
+                    <div class="row">
+                        <div class="col-12">
+
+                            <div class="col-md-12">
+
+                                <div class="card card-primary card-outline">
+                                    <div class="card-header">
+
+                                        <input
+                                            type="button"
+                                            class="btn btn-sm btn-primary btn-flat"
+                                            value="커넥터 생성"
+                                            data-toggle="modal"
+                                            data-target="#modal-add-user"/>
+
+                                        <div class="card-tools">
+
+                                            <div class="input-group input-group-sm">
+
+                                                <input type="text" class="form-control" placeholder="">
+                                                <div class="input-group-append">
+                                                    <div class="btn btn-primary">
+                                                        <i class="fas fa-search"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- /.card-tools -->
+                                    </div>
+                                    <!-- /.card-header -->
+                                    <div class="card-body table-responsive p-0">
+
+                                        <div class="table-responsive mailbox-messages">
+                                            <table class="table table-head-fixed text-nowrap">
+
+                                                <thead>
+                                                    <tr>
+                                                        <td class="mailbox-subject">커넥터명</td>
+                                                        <td class="mailbox-subject">타입</td>
+                                                        <td class="mailbox-subject">생성 일시</td>
+                                                        <td class="mailbox-subject">수정 일시</td>
+                                                        <td class="mailbox-subject">설명</td>
+                                                        <td style="width: 10px"></td>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="mailbox-name">Kafka-Output-Connector</td>
+                                                        <td class="mailbox-subject">Kafka</td>
+                                                        <td class="mailbox-subject">2020-12-16 13:00:12</td>
+                                                        <td class="mailbox-subject">2020-12-16 15:00:15</td>
+                                                        <td class="mailbox-date">Kafka Output Connector (cluster 개수 고정)</td>
+                                                        <td>
+                                                            <span style='cursor:pointer;' data-toggle='dropdown'>
+                                                                <i class='fas fa-ellipsis-v'></i>
+                                                            </span>
+                                                            <div class='dropdown-menu'>
+                                                                <a class='dropdown-item' href='#'>수정</a>
+                                                                <a class='dropdown-item' href='#'>삭제</a>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="mailbox-name">Rest-Input-Connector</td>
+                                                        <td class="mailbox-subject">Rest</td>
+                                                        <td class="mailbox-subject">2020-12-17 15:00:12</td>
+                                                        <td class="mailbox-subject">2020-12-16 15:10:09</td>
+                                                        <td class="mailbox-date">Rest Input Connector</td>
+                                                        <td>
+                                                            <span style='cursor:pointer;' data-toggle='dropdown'>
+                                                                <i class='fas fa-ellipsis-v'></i>
+                                                            </span>
+                                                            <div class='dropdown-menu'>
+                                                                <a class='dropdown-item' href='#'>수정</a>
+                                                                <a class='dropdown-item' href='#'>삭제</a>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <!-- /.table -->
+                                        </div>
+                                        <!-- /.mail-box-messages -->
+                                    </div>
+                                    <!-- /.card-body -->
+                                    <!-- /.card -->
+                                </div>
+                                <!-- /.card -->
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                        <!-- /.row -->
+                    </div>
+                    <!-- /.container-fluid -->
+                </section>
+                <!-- /.content -->
+            </div>
+            <!-- /.content-wrapper -->
+        </div>
+    </div>
+</html>

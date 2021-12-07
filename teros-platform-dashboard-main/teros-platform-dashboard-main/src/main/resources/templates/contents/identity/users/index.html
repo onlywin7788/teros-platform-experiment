@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/layout}">
+    <head>
+        <script type="text/javascript">
+
+            function refreshPage(){
+                location.href = "/identity/users";
+            }
+
+            function onCreateList() {
+                res = requestAPI("/central-server/v1/user", null, "GET");
+
+                var resList = res.list;
+                for (var i in resList) {
+                    var id = resList[i].userId;
+                    var name = resList[i].userName;
+                    var email = resList[i].email;
+                    var create_time = resList[i].createDtime;
+                    var modify_time = resList[i].modifyDtime;
+                    var description = resList[i].description;
+
+                    var append = "";
+                    append += "<tr>";
+
+                    //append += "<td>" + (   i * 1 + 1 ) + "</td>";
+
+                    append += "<td><a href='#' data-toggle='modal' data-target='#modal-option-detail' data-backdrop='static' data-keyboard='false'>" +
+                            name + "</a></td>";
+                    append += "<td>" + email + "</td>";
+                    append += "<td></td>";
+                    append += "<td></td>";
+                    append += "<td>" + create_time + "</td>";
+                    append += "<td>" + modify_time + "</td>";
+                    append += "<td>" + description + "</td>";
+                    append += "<td>";
+                    append += "<span style='cursor:pointer;' data-toggle='dropdown'><i class='fas fa-ellipsis" +
+                            "-v'></i></span>";
+                    append += "<div class='dropdown-menu'><a class='dropdown-item' href='#' onclick='openModalDataUser(" + id + ")'>수정</a>"
+                    append += "<a class='dropdown-item' href='#' onclick='openModalDeleteUser(" + id + ")'>삭제</a></div>";
+                    append += "</td>";
+                    append += "</tr>";
+
+                    $("#tbody-data-list").append(append);
+                }
+            }
+
+            function check_validation() {
+                // basic info
+
+                var checkArray = [];
+                checkArray.push("text-user-name");
+                checkArray.push("text-user-email");
+                checkArray.push("text-user-password");
+
+                var error = 0;
+                for (var i = 0; i < checkArray.length; i++) {
+                    checkId = checkArray[i];
+                    if ($("#" + checkId).val().length == 0) {
+                        error = 1;
+                    }
+
+                }
+
+                if (error == 1) 
+                    return false;
+                return true;
+            }
+
+            function dataSubmit(isUpdate) {
+
+        
+                if (check_validation() == false) {
+                    alert('입력하지 않은 정보가 존재합니다.');
+                    return;
+                }
+
+                var requestData = {
+                    "userName": $("#text-user-name").val(),
+                    "email": $("#text-user-email").val(),
+                    "password": $("#text-user-password").val(),
+                    "description": $("#text-user-description").val()
+                };
+                requestData = JSON.stringify(requestData);
+
+                var method = "POST";
+                var api_url = "/central-server/v1/user";
+                alert_title = "생성";
+                if (isUpdate == "true") {
+                    method = "PUT";
+                    api_url = "/central-server/v1/user/" + update_id;
+                    alert_title = "수정";
+                }
+
+                res = requestAPI(api_url, requestData, method);
+
+                lastID = 0;
+                if (isUpdate == "1") 
+                    lastID = update_id;
+                
+                //else   lastID = res.data.userId;
+                refreshPage();
+                
+            }
+
+            function openModalDataUser(id){
+                if(id == 0){
+                    $("#trigger-modal-data-user").click();
+                }
+                else{
+                    $("#trigger-modal-data-user").click();   
+                }
+            }
+
+            function openModalDeleteUser(id){
+                if (confirm("해당 사용자 정보를 삭제하시겠습니까?") == true) {
+                    res = requestAPI("/central-server/v1/user/" + id, null, "DELETE");
+                    refreshPage();
+                }
+                
+            }
+
+            $(document).ready(function () {
+                $("#btn-data-insert").click(function () {
+                    dataSubmit(false);
+                });
+                onCreateList();
+            });
+        </script>
+    </head>
+
+    <div layout:fragment="content">
+        <div class="wrapper">
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+
+                <nav aria-label="breadcrumb" class="mb-4">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active" aria-current="page">Home</li>
+                        <li class="breadcrumb-item active" aria-current="page">계정 관리</li>
+                        <li class="breadcrumb-item active" aria-current="page">사용자</li>
+                    </ol>
+                </nav>
+
+                <!-- option modal -->
+                <div
+                    id="modal-option-detail"
+                    class="modal fixed-left fade"
+                    tabindex="-1"
+                    role="dialog">
+                    <div class="modal-dialog modal-dialog-aside" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h6 class="modal-title">설정</h6>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <div class="form-check mb-1">
+                                        <input class="form-check-input" type="checkbox">
+                                        <label class="form-check-label" for="gridCheck1">API Development</label>
+                                    </div>
+                                    <div class="form-check mb-1">
+                                        <input class="form-check-input" type="checkbox">
+                                        <label class="form-check-label" for="gridCheck1">Data Development</label>
+                                    </div>
+                                    <div class="form-check mb-1">
+                                        <input class="form-check-input" type="checkbox">
+                                        <label class="form-check-label" for="gridCheck1">Application Admin</label>
+                                    </div>
+                                    <div class="form-check mb-1">
+                                        <input class="form-check-input" type="checkbox">
+                                        <label class="form-check-label" for="gridCheck1">User Admin</label>
+                                    </div>
+                                    <div class="form-check mb-1">
+                                        <input class="form-check-input" type="checkbox">
+                                        <label class="form-check-label" for="gridCheck1">Monitoring</label>
+                                    </div>
+                                    <div class="form-check mb-1">
+                                        <input class="form-check-input" type="checkbox">
+                                        <label class="form-check-label" for="gridCheck1">System Admin</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button
+                                    type="button"
+                                    class="btn btn-secondary btn-sm btn-flat"
+                                    data-dismiss="modal">닫기</button>
+                                <button type="button" class="btn btn-primary btn-sm btn-flat">확인</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- modal-bialog .// -->
+                </div>
+                <!-- modal.// -->
+
+                <!-- New Modal -->
+                <div class="modal fade" id="modal-data-user" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h6 class="modal-title">사용자 정보</h6>
+                                <button type="button" class="close" data-dismiss="modal">×</button>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                            <form role="form">
+                                <div class="card-body">
+
+                                    <div class="form-group input-group-sm">
+                                        <label>사용자명</label>
+                                        <input type="text" class="form-control" id="text-user-name">
+                                    </div>
+
+                                    <div class="form-group input-group-sm">
+                                        <label>패스워드</label>
+                                        <input type="password" class="form-control" id="text-user-password">
+                                    </div>
+
+                                    <div class="form-group input-group-sm">
+                                        <label>E-mail</label>
+                                        <input type="text" class="form-control" id="text-user-email">
+                                    </div>
+
+                                    <div class="form-group input-group-sm">
+                                        <label>설명</label>
+                                        <input type="text" class="form-control" id="text-user-description">
+                                    </div>
+
+                                </div>
+                            </form>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button
+                                type="button"
+                                class="btn btn-secondary btn-sm btn-flat"
+                                data-dismiss="modal">닫기</button>
+                            <button
+                                type="button"
+                                class="btn btn-primary btn-sm btn-flat"
+                                id="btn-data-insert">확인</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- trigger modal event -->
+            <input type="hidden" id="trigger-modal-data-user" data-toggle="modal" data-target="#modal-data-user"/>
+            
+            <!---------------------- Main content ---------------------->
+            <section class="content">
+                <div class="container-fluid">
+
+                    <div class="row">
+                        <div class="col-12">
+
+                            <div class="col-md-12">
+
+                                <div class="card card-primary card-outline">
+                                    <div class="card-header">
+
+                                        <input
+                                            type="button"
+                                            class="btn btn-xs btn-primary btn-flat"
+                                            value="사용자 생성"
+                                            onclick="openModalDataUser(0)"/>
+
+                                        <div class="card-tools">
+
+                                            <div class="input-group input-group-sm">
+
+                                                <input type="text" class="form-control input-sm" placeholder="">
+                                                <div class="input-group-append">
+                                                    <div class="btn btn-primary">
+                                                        <i class="fas fa-search"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- /.card-tools -->
+                                    </div>
+                                    <!-- /.card-header -->
+                                    <div class="card-body table-responsive p-0">
+
+                                        <div class="table-responsive mailbox-messages">
+                                            <table class="table table-head-fixed text-nowrap">
+
+                                                <thead>
+                                                    <tr>
+                                                        <td>사용자명</td>
+                                                        <td>E-MAIL</td>
+                                                        <td>그룹명</td>
+                                                        <td>정책</td>
+                                                        <td style="width: 50px">생성 일시</td>
+                                                        <td style="width: 50px">수정 일시</td>
+                                                        <td>설명</td>
+                                                        <td style="width: 10px"></td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="tbody-data-list"></tbody>
+                                            </table>
+                                            <!-- /.table -->
+                                        </div>
+                                        <!-- /.mail-box-messages -->
+                                    </div>
+                                    <!-- /.card-body -->
+                                    <!-- /.card -->
+                                </div>
+                                <!-- /.card -->
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                        <!-- /.row -->
+                    </div>
+                    <!-- /.container-fluid -->
+                </section>
+                <!-- /.content -->
+            </div>
+            <!-- /.content-wrapper -->
+        </div>
+    </div>
+</html>
